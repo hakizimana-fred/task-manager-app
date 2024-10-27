@@ -1,11 +1,12 @@
+import { Navbar } from "./components/Navbar"
+import { Sidebar } from './components/Sidebar'
 
 function App() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-yellow-500">
-      Hello world!
-    </h1>
+    <Navbar /> 
+    <Sidebar />
     </>
   )
 }
