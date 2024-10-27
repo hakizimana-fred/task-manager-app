@@ -6,6 +6,8 @@ export default {
       colors: {
         lightBg: '#f8fafc',
         darkBg: '#1e293b',
+        primaryBlue: '#5349C3',
+        myGray: '#F6F8FA'
       },
     },
   },

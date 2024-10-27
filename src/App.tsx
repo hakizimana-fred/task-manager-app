@@ -1,13 +1,12 @@
-import { Navbar } from "./components/Navbar"
-import { Sidebar } from './components/Sidebar'
+import Layout from './components/Layout'
+import { ThemeProvider } from "./context/ThemeContext"
 
 function App() {
 
   return (
-    <>
-    <Navbar /> 
-    <Sidebar />
-    </>
+    <ThemeProvider>
+      <Layout />
+    </ThemeProvider>
   )
 }
 
