@@ -17,7 +17,7 @@ const TaskCard = ({id, title, status, createdAt }: TaskCardProps) => {
   const [isCreatePopupOpen, setCreatePopupOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const { deleteTask } = useTasks()
+  const { deleteTask, editTask } = useTasks()
 
   const getStatusColor = () => {
     return status ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700';
@@ -45,8 +45,13 @@ const TaskCard = ({id, title, status, createdAt }: TaskCardProps) => {
    const handleConfirmDelete = () => {
     deleteTask(id)
     setDeleteDialogOpen(false);
-    // Perform delete operation here (e.g., API call)
   };
+
+  const handleEdit = () => {
+    if (!inputValue) return
+    editTask(id, inputValue)
+    setEditPopupOpen(false);
+  }
 
   const handleCloseModal = () => {
     setDeleteDialogOpen(false);
@@ -159,7 +164,7 @@ const TaskCard = ({id, title, status, createdAt }: TaskCardProps) => {
               <Dialog.Panel className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
                 <Dialog.Title className="text-gray-800 dark:text-gray-200">Edit Item</Dialog.Title>
                 <input type="text" className="w-full px-3 py-2 mt-4 mb-4 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white" placeholder="Edit title" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-                <button onClick={() => { handleCloseModal(); /* Execute update logic here */ }} className="px-4 py-2 bg-blue-500 text-white rounded">Save</button>
+                <button onClick={handleEdit} className="px-4 py-2 bg-blue-500 text-white rounded">Save</button>
               </Dialog.Panel>
             </TransitionChild>
           </div>

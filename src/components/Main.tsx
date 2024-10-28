@@ -5,9 +5,6 @@ import { useTasks } from '../context/TasksContext';
 export const MainSection = () => {
   const { todos } = useTasks()
 
-  console.log(todos, 'todos')
-
-
   return (
     <main className="flex-1 p-6 bg-myGray dark:bg-darkBg overflow-y-auto">
       <div className="flex items-center justify-between mb-4">
