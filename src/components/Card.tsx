@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { EllipsisVertical } from 'lucide-react';
 import { Menu, Dialog, Transition, MenuItems, MenuButton, TransitionChild, DialogPanel, DialogTitle } from '@headlessui/react';
 import { Fragment } from 'react';
+import { useTasks } from '../context/TasksContext';
 
 interface TaskCardProps {
   title: string;
@@ -16,6 +17,8 @@ const TaskCard = ({id, title, status, createdAt }: TaskCardProps) => {
   const [isCreatePopupOpen, setCreatePopupOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
+  const { deleteTask } = useTasks()
+
   const getStatusColor = () => {
     return status ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700';
   };
@@ -24,7 +27,6 @@ const TaskCard = ({id, title, status, createdAt }: TaskCardProps) => {
     switch (action) {
       case 'Delete':
         setDeleteDialogOpen(true);
-        console.log('deletint this item ' + id)
         break;
       case 'Edit':
         setEditPopupOpen(true);
@@ -38,6 +40,12 @@ const TaskCard = ({id, title, status, createdAt }: TaskCardProps) => {
       default:
         break;
     }
+  };
+
+   const handleConfirmDelete = () => {
+    deleteTask(id)
+    setDeleteDialogOpen(false);
+    // Perform delete operation here (e.g., API call)
   };
 
   const handleCloseModal = () => {
@@ -116,7 +124,7 @@ const TaskCard = ({id, title, status, createdAt }: TaskCardProps) => {
                 <p className="mt-2">Are you sure you want to delete this item?</p>
                 <div className="flex mt-4 justify-end gap-2">
                   <button onClick={handleCloseModal} className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded">Cancel</button>
-                  <button onClick={() => { handleCloseModal(); /* Execute delete logic here */ }} className="px-4 py-2 bg-red-500 text-white rounded">Confirm</button>
+                  <button onClick={handleConfirmDelete} className="px-4 py-2 bg-red-500 text-white rounded">Confirm</button>
                 </div>
               </DialogPanel>
             </TransitionChild>

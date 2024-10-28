@@ -21,8 +21,17 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
     }, [])
 
     
-  function deleteTask(id: number) {
-    console.log(id)
+  async function deleteTask(id: number) {
+    try {
+      const { data: deletedTodo } = await axios.delete(`${BASE_URL}/todos/${id}`)
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === id ? { ...todo, ...deletedTodo } : todo
+        )
+      );
+    }catch(e) {
+      console.log(e)
+    }
   }
 
   return (

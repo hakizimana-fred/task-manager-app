@@ -5,6 +5,8 @@ import { useTasks } from '../context/TasksContext';
 export const MainSection = () => {
   const { todos } = useTasks()
 
+  console.log(todos, 'todos')
+
 
   return (
     <main className="flex-1 p-6 bg-myGray dark:bg-darkBg overflow-y-auto">
@@ -32,7 +34,7 @@ export const MainSection = () => {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
         <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Tasks</h2>
         <div className='flex gap-3 flex-wrap'>
-         {todos.map((task) => (
+         {todos.filter((todo) => !todo.isDeleted).map((task) => (
           <TaskCard
             key={task.id}
             id={task.id}
