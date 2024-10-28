@@ -5,6 +5,7 @@ import { ITodo } from '../interfaces';
 
 type TasksContextProps = {
     todos: ITodo[]
+    createTask: (userId: number, newTitle: string) => void
     deleteTask: (id: number) => void
     editTask: (id: number, newTitle: string) => void
 }
@@ -21,10 +22,22 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
         })()
     }, [])
 
+  async function createTask(userId: number, newTitle: string) {
+    try {
+      const { data: newTodo } = await axios.post(`${BASE_URL}/todos/add`, {
+        todo: newTitle,
+        id: todos.length + 1,
+        completed: false,
+        userId
+      })
+      setTodos((prevTodos) => [...prevTodos, newTodo])
+    }catch(e){
+      console.log(e)
+    }
+  }
 
    async function editTask(id: number, newTitle: string) {
     try {
-      // Simulating a PATCH request
       const { data: updatedTask } = await axios.patch(`${BASE_URL}/todos/${id}`, {todo: newTitle })
       console.log(updatedTask.todo)
       setTodos((prevTodos) =>
@@ -52,7 +65,7 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <TasksContext.Provider value={{ todos, deleteTask, editTask }}>
+    <TasksContext.Provider value={{ todos, deleteTask, editTask, createTask }}>
       {children}
     </TasksContext.Provider>
   );

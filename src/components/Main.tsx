@@ -37,6 +37,7 @@ export const MainSection = () => {
             id={task.id}
             title={task.todo}
             status={task.completed}
+            userId={task.userId}
           />
         ))}
     </div>

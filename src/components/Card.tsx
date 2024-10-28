@@ -9,15 +9,16 @@ interface TaskCardProps {
   status: boolean;
   createdAt?: string;
   id: number
+  userId: number
 }
 
-const TaskCard = ({id, title, status, createdAt }: TaskCardProps) => {
+const TaskCard = ({id, title, status, createdAt, userId }: TaskCardProps) => {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [isEditPopupOpen, setEditPopupOpen] = useState(false);
   const [isCreatePopupOpen, setCreatePopupOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const { deleteTask, editTask } = useTasks()
+  const { deleteTask, editTask, createTask } = useTasks()
 
   const getStatusColor = () => {
     return status ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700';
@@ -42,7 +43,14 @@ const TaskCard = ({id, title, status, createdAt }: TaskCardProps) => {
     }
   };
 
-   const handleConfirmDelete = () => {
+ const handleCreateTask = ()  => {
+  if (!inputValue) return
+   createTask(userId, inputValue)
+   setCreatePopupOpen(false);
+   setInputValue('')
+ }
+
+  const handleConfirmDelete = () => {
     deleteTask(id)
     setDeleteDialogOpen(false);
   };
@@ -51,6 +59,7 @@ const TaskCard = ({id, title, status, createdAt }: TaskCardProps) => {
     if (!inputValue) return
     editTask(id, inputValue)
     setEditPopupOpen(false);
+   setInputValue('')
   }
 
   const handleCloseModal = () => {
@@ -198,7 +207,7 @@ const TaskCard = ({id, title, status, createdAt }: TaskCardProps) => {
               <DialogPanel className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
                 <DialogTitle className="text-gray-800 dark:text-gray-200">Create Item</DialogTitle>
                 <input type="text" className="w-full px-3 py-2 mt-4 mb-4 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white" placeholder="Enter title" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-                <button onClick={() => { handleCloseModal(); /* Execute create logic here */ }} className="px-4 py-2 bg-green-500 text-white rounded">Create</button>
+                <button onClick={handleCreateTask} className="px-4 py-2 bg-green-500 text-white rounded">Create</button>
               </DialogPanel>
             </TransitionChild>
           </div>
