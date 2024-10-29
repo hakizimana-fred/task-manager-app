@@ -10,6 +10,8 @@ type TasksContextProps = {
     editTask: (id: number, newTitle: string) => void
     searchQuery: string
     setSearchQuery: Dispatch<SetStateAction<string>>;
+    taskStatus: string;
+    setTaskStatus: Dispatch<SetStateAction<string>>;
     filteredTasks: () => ITodo[]
 }
 
@@ -18,6 +20,7 @@ const TasksContext = createContext({} as TasksContextProps);
 export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
      const [todos, setTodos] = useState<ITodo[]>([])
      const [searchQuery, setSearchQuery] = useState<string>('')
+    const [taskStatus, setTaskStatus] = useState<string>('all');
 
     useEffect(() => {
         (async () => {
@@ -31,6 +34,10 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
     return todos
             .filter((todo) => !todo.isDeleted)
             .filter((todo) => searchQuery === "" || todo.todo.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()))
+            .filter((todo) => taskStatus === 'all' || 
+             (taskStatus === 'completed' && todo.completed) || 
+             (taskStatus === 'in_progress' && !todo.completed)
+          )
   }
 
   async function createTask(userId: number, newTitle: string) {
@@ -75,8 +82,10 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
+  
+
   return (
-    <TasksContext.Provider value={{ todos, deleteTask, editTask, createTask, searchQuery, setSearchQuery, filteredTasks }}>
+    <TasksContext.Provider value={{ todos, deleteTask, editTask, createTask, searchQuery, setSearchQuery, filteredTasks, taskStatus, setTaskStatus }}>
       {children}
     </TasksContext.Provider>
   );
