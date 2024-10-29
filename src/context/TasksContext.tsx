@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from 'react';
 import { BASE_URL } from '../constants';
 import { ITodo } from '../interfaces';
 
@@ -8,12 +8,16 @@ type TasksContextProps = {
     createTask: (userId: number, newTitle: string) => void
     deleteTask: (id: number) => void
     editTask: (id: number, newTitle: string) => void
+    searchQuery: string
+    setSearchQuery: Dispatch<SetStateAction<string>>;
+    filteredTasks: () => ITodo[]
 }
 
 const TasksContext = createContext({} as TasksContextProps);
 
 export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
      const [todos, setTodos] = useState<ITodo[]>([])
+     const [searchQuery, setSearchQuery] = useState<string>('')
 
     useEffect(() => {
         (async () => {
@@ -21,6 +25,13 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
             setTodos(todos)
         })()
     }, [])
+
+
+  function filteredTasks() {
+    return todos
+            .filter((todo) => !todo.isDeleted)
+            .filter((todo) => searchQuery === "" || todo.todo.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()))
+  }
 
   async function createTask(userId: number, newTitle: string) {
     try {
@@ -65,7 +76,7 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <TasksContext.Provider value={{ todos, deleteTask, editTask, createTask }}>
+    <TasksContext.Provider value={{ todos, deleteTask, editTask, createTask, searchQuery, setSearchQuery, filteredTasks }}>
       {children}
     </TasksContext.Provider>
   );
