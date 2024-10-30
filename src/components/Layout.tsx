@@ -1,3 +1,4 @@
+import React from 'react'
 import { Sidebar } from './Sidebar';
 import { MainSection } from './Main';
 import { Navbar } from './Navbar';

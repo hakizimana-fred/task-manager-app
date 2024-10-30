@@ -1,6 +1,7 @@
+import React from 'react'
 import { createContext, useContext, useEffect, useState } from 'react';
 
-const ThemeContext = createContext({
+export const ThemeContext = createContext({
   theme: 'light',
   toggleTheme: () => {},
 });

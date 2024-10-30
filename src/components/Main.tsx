@@ -1,7 +1,6 @@
 import {  ChevronDown } from 'lucide-react';
 import TaskCard from './Card';
 import { useTasks } from '../context/TasksContext';
-import { useState } from 'react';
 import { useTranslation } from "react-i18next";
 
 export const MainSection = () => {
@@ -11,7 +10,7 @@ export const MainSection = () => {
 
 
   return (
-    <main className="flex-1 p-6 bg-myGray dark:bg-darkBg overflow-y-auto">
+    <main className="flex-1 p-6 bg-myGray dark:bg-darkBg overflow-y-auto" data-testid="main">
       <div className="flex items-center justify-between mb-4">
       
 

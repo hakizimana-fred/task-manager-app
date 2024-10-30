@@ -10,7 +10,7 @@ export const Navbar = () => {
  
 
   return ( 
-     <nav className="flex flex-col md:flex-row items-center justify-between p-4 bg-white dark:bg-darkBg">
+     <nav className="flex flex-col md:flex-row items-center justify-between p-4 bg-white dark:bg-darkBg" data-testid="navbar">
       <h1 className="text-xl font-bold dark:text-gray-300 mb-2 md:mb-0">Task Manager</h1>
 
       <div className="relative">
@@ -24,9 +24,9 @@ export const Navbar = () => {
       </div>
       <div className='mt-2 md:mt-0'>
       {theme === 'light' ?  
-      <Moon size={24} onClick={toggleTheme} className='dark:text-gray-300' /> 
+      <Moon data-testid="moon-icon" size={24} onClick={toggleTheme} className='dark:text-gray-300' /> 
       : 
-      <Sun size={24} onClick={toggleTheme} className='dark:text-gray-300' />
+      <Sun data-testid="sun-icon" size={24} onClick={toggleTheme} className='dark:text-gray-300' />
     }
     </div>
     </nav>

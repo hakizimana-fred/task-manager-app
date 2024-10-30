@@ -4,7 +4,7 @@ import { useTasks } from '../context/TasksContext';
 export const Sidebar = () => {
   const {  setTaskStatus } = useTasks()
   return (
-    <aside className="w-16 md:w-20 bg-white dark:bg-darkBg h-screen p-4 flex flex-col items-center space-y-8">
+    <aside className="w-16 md:w-20 bg-white dark:bg-darkBg h-screen p-4 flex flex-col items-center space-y-8" data-testid="sidebar">
       <button className="flex flex-col items-center text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
         onClick={() => setTaskStatus('all')}
       >
