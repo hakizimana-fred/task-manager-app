@@ -15,7 +15,7 @@ A simple task management application built with React and TypeScript, allowing u
 - **React**: A JavaScript library for building user interfaces
 - **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript
 - **Axios**: For making HTTP requests
-- **Cypress**: For end-to-end testing
+- **Jest**: For unit tests
 - **React Context API**: For state management
 
 ## Getting Started

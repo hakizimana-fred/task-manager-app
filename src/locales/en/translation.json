@@ -1,6 +1,12 @@
 {
+  "search":"search",
   "all_tasks": "All Tasks",
   "to_do": "To Do",
-  "in_progress": "In Progress",
-  "completed": "Completed"
+  "in_progress": "Pending",
+  "completed": "Completed",
+  "Create":"Create",
+  "Edit":"Edit",
+  "Delete":"Delete"
+
+
 }

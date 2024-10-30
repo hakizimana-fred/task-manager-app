@@ -3,6 +3,7 @@ import { EllipsisVertical } from 'lucide-react';
 import { Menu, Dialog, Transition, MenuItems, MenuButton, TransitionChild, DialogPanel, DialogTitle } from '@headlessui/react';
 import { Fragment } from 'react';
 import { useTasks } from '../context/TasksContext';
+import { useTranslation } from 'react-i18next';
 
 interface TaskCardProps {
   title: string;
@@ -12,11 +13,12 @@ interface TaskCardProps {
   userId: number
 }
 
-const TaskCard = ({id, title, status, createdAt, userId }: TaskCardProps) => {
+const TaskCard = ({id, title, status,  userId }: TaskCardProps) => {
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [isEditPopupOpen, setEditPopupOpen] = useState(false);
   const [isCreatePopupOpen, setCreatePopupOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const {t } = useTranslation()
 
   const { deleteTask, editTask, createTask } = useTasks()
 
@@ -34,10 +36,7 @@ const TaskCard = ({id, title, status, createdAt, userId }: TaskCardProps) => {
         break;
       case 'Create':
         setCreatePopupOpen(true);
-        break;
-      case 'Mark Complete':
-        // Handle "Mark Complete" logic here
-        break;
+        break; 
       default:
         break;
     }
@@ -87,7 +86,7 @@ const TaskCard = ({id, title, status, createdAt, userId }: TaskCardProps) => {
               </MenuButton>
             )}
             <MenuItems className="absolute right-0 mt-2 w-40 origin-top-right bg-white dark:bg-gray-800 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              {['Create', 'Edit', 'Delete', 'Mark Complete'].map((action) => (
+              {['Create', 'Edit', 'Delete'].map((action) => (
                 <Menu.Item key={action}>
                   {({ active }) => (
                     <button
@@ -96,7 +95,7 @@ const TaskCard = ({id, title, status, createdAt, userId }: TaskCardProps) => {
                         active ? 'bg-gray-100 dark:bg-gray-700' : ''
                       } w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200`}
                     >
-                      {action}
+                      {t(action)}
                     </button>
                   )}
                 </Menu.Item>
@@ -105,11 +104,8 @@ const TaskCard = ({id, title, status, createdAt, userId }: TaskCardProps) => {
           </Menu>
         </div>
       </div>
-      <div>
-        <p className="text-xs text-gray-500 dark:text-gray-400">Created: {createdAt}</p>
-      </div>
-
       {/* Delete Confirmation Dialog */}
+
       <Transition appear show={isDeleteDialogOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={handleCloseModal}>
           <TransitionChild

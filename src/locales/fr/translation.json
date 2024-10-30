@@ -1,6 +1,9 @@
 {
-  "tasks": "Tâches",
-  "to_do": "À faire",
+  "search":"rechercher",
+  "all_tasks": "Tâches",
   "in_progress": "En cours",
-  "completed": "Terminé"
+  "completed": "Terminé",
+  "Create":"Créer",
+  "Edit":"Éditer",
+  "Delete":"Supprimer"
 }

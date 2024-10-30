@@ -1,10 +1,10 @@
 import {  ChevronDown } from 'lucide-react';
 import TaskCard from './Card';
 import { useTasks } from '../context/TasksContext';
+import i18n from '../i18n';
 
 export const MainSection = () => {
   const {  filteredTasks } = useTasks()
-  //const [selectedLanguage, setSelectedLanguage] = useState('english')
 
 
   return (
@@ -17,11 +17,12 @@ export const MainSection = () => {
       <select
         className="appearance-none border px-4 py-2 rounded text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:text-blue-500 dark:hover:text-blue-400 bg-transparent pr-8"
         onChange={(e) => {
+          i18n.changeLanguage(e.target.value)
           console.log(e.target.value)
         }}
       >
-        <option value="english">English</option>
-        <option value="french">French</option>
+        <option value="en">English</option>
+        <option value="fr">French</option>
       </select>
       <ChevronDown className="absolute right-2 pointer-events-none h-4 w-4 text-gray-500 dark:text-gray-400" />
     </div>
